@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- General Styling & Enhancements --- */
         :root {
             --primary-color: #4a90e2;
             --primary-hover: #357ABD;
@@ -22,9 +21,7 @@
         }
 
         body {
-            /* Use the imported font */
             font-family: 'Poppins', sans-serif;
-            /* Added a subtle gradient background */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
@@ -35,7 +32,6 @@
             box-sizing: border-box;
         }
 
-        /* --- Main Container --- */
         .container {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
@@ -59,7 +55,6 @@
             font-weight: 600;
         }
 
-        /* --- Input Area --- */
         .input-area {
             display: flex;
             gap: 10px;
@@ -82,7 +77,6 @@
             box-shadow: 0 0 8px rgba(74, 144, 226, 0.4);
         }
         
-        /* Animation for when user tries to add empty task */
         #taskInput.error {
             animation: shake 0.4s ease;
             border-color: var(--danger-color);
@@ -114,7 +108,6 @@
             transform: scale(0.97); /* Click effect */
         }
 
-        /* --- Task List --- */
         ul {
             list-style-type: none;
             padding: 0;
@@ -122,7 +115,6 @@
             overflow-y: auto;
         }
         
-        /* Message for when the list is empty */
         ul:empty::after {
             content: "No tasks yet. Add one above! ✨";
             display: block;
@@ -140,13 +132,10 @@
             align-items: center;
             cursor: pointer;
             word-break: break-word;
-            /* Added smooth transitions for changes */
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden; /* For containing the pseudo-element */
-        }
+            overflow: hidden;         }
         
-        /* Animation for adding a new task */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -155,8 +144,6 @@
         li.new-task {
             animation: fadeIn 0.4s ease;
         }
-        
-        /* Animation for deleting a task */
         li.fade-out {
             opacity: 0;
             transform: scale(0.9);
@@ -176,8 +163,6 @@
             text-decoration: line-through;
             text-decoration-thickness: 2px;
         }
-
-        /* Custom "checkbox" styling */
         li::before {
             content: '';
             position: absolute;
@@ -195,8 +180,6 @@
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
-        /* Checkmark inside the checkbox */
         li.completed::after {
             content: '✔';
             position: absolute;
@@ -208,7 +191,7 @@
             font-weight: bold;
         }
         
-        /* Delete button - now an icon shown on hover */
+       
         .delete-btn {
             background: var(--danger-color);
             color: white;
@@ -219,7 +202,6 @@
             font-weight: bold;
             font-size: 14px;
             line-height: 1;
-            /* Initially hidden */
             opacity: 0;
             transform: scale(0.8);
             transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
@@ -258,35 +240,32 @@
             const taskText = taskInput.value.trim();
 
             if (taskText === '') {
-                // Shake the input field instead of using an alert
                 taskInput.classList.add('error');
                 setTimeout(() => {
                     taskInput.classList.remove('error');
-                }, 500); // Remove class after animation
+                }, 500); 
                 return;
             }
 
             const li = document.createElement('li');
-            li.classList.add('new-task'); // Class for fade-in animation
+            li.classList.add('new-task'); 
 
             const taskSpan = document.createElement('span');
             taskSpan.textContent = taskText;
             li.appendChild(taskSpan);
 
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = '✕'; // Using a simple 'x' as an icon
+            deleteButton.textContent = '✕'; 
             deleteButton.className = 'delete-btn';
             li.appendChild(deleteButton);
 
             taskList.appendChild(li);
-
-            // Remove the animation class after it has played
             setTimeout(() => {
                 li.classList.remove('new-task');
             }, 500);
 
             taskInput.value = '';
-            taskInput.focus(); // Keep the cursor in the input field
+            taskInput.focus();
         };
 
         const handleTaskListClick = (event) => {
@@ -298,11 +277,10 @@
                 // Add fade-out animation class
                 li.classList.add('fade-out');
                 
-                // Remove the element from DOM after the animation completes
                 li.addEventListener('transitionend', () => {
                     taskList.removeChild(li);
                 });
-            } else { // Click on the task item itself (LI or SPAN)
+            } else { 
                 const li = clickedElement.closest('li');
                 if (li) {
                     li.classList.toggle('completed');
